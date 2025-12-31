@@ -1,0 +1,21 @@
+<%= form_with model: [:admin, @quiz] do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+
+    <%= f.fields_for :questions do |qf| %>
+        <%= qf.label :content, "Question" %>
+        <%= qf.text_area :content %>
+
+        <%= qf.label :question_type, "Question Type" %>
+        <%= qf.select :question_type, Question::QUESTION_TYPES %>
+
+        <%= qf.fields_for :options do |of| %>
+            <%= of.label :content, "Option" %>
+            <%= of.text_field :content %>
+            <%= of.check_box :correct %>
+            <%= of.label :correct, "Correct" %>
+        <% end %>
+    <% end %>
+
+    <%= f.submit "Create Quiz", class: "btn btn-primary" %>
+<% end %>
